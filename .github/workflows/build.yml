@@ -1,4 +1,4 @@
-name: Build C++ Project
+name: Build and Upload C++ Executable
 
 on:
   push:
@@ -8,21 +8,20 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Install g++
-      run: sudo apt-get update && sudo apt-get install -y g++
+      - name: Install g++
+        run: sudo apt-get update && sudo apt-get install -y g++
 
-    - name: Compile metro.cpp
-      run: g++ metro.cpp -o metro
+      - name: Compile metro.cpp
+        run: g++ metro.cpp -o metro
 
-    - name: Run metro (optional)
-      run: ./metro < /dev/null || true
-
-    - name: Upload executable as artifact
-      uses: actions/upload-artifact@v4
+      - name: Upload executable as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: metro-executable
+          path: ./metro
